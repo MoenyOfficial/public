@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Error | Sacred Studios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        /* Custom Animations */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cursor-blink {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .glow-effect {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Error Page Styles */
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #2E466B;
+            color: white;
+            text-align: center;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        .code-snippet {
+            background-color: #1B2A44;
+            padding: 1rem; /* Reduced padding */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px; /* Reduced width */
+            width: 90%;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .code-snippet .line-number {
+            color: #888;
+            display: inline-block;
+            width: 1.5rem; /* Reduced width */
+            user-select: none;
+        }
+
+        .code-snippet .code {
+            display: inline-block;
+            width: calc(100% - 1.5rem);
+            white-space: nowrap;
+            overflow-x: auto;
+            font-size: 0.875rem; /* Reduced font size */
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 1ch;
+            background-color: white;
+        }
+
+        .cta-button {
+            background-color: #4E6C92;
+            color: white;
+            padding: 0.5rem 1rem; /* Reduced padding */
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 1.5rem; /* Reduced margin */
+            text-decoration: none;
+            font-size: 0.875rem; /* Reduced font size */
+        }
+
+        .cta-button:hover {
+            background-color: #6482AD;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-2E466B text-white font-sans">
+    <section class="error-page fade-in">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-7xl font-bold glow-effect mb-2">404</h1> <!-- Reduced font size and margin -->
+            <p class="text-lg md:text-xl mb-4">Oh no! You’ve ventured into unknown code...</p> <!-- Reduced font size and margin -->
+            <div class="code-snippet">
+                <div>
+                    <span class="line-number">1</span><span class="code">function findPage(page) {</span>
+                </div>
+                <div>
+                    <span class="line-number">2</span><span class="code"> &nbsp;&nbsp;if (page === "exists") {</span>
+                </div>
+                <div>
+                    <span class="line-number">3</span><span class="code"> &nbsp;&nbsp;&nbsp;&nbsp;return "Page found!";</span>
+                </div>
+                <div>
+                    <span class="line-number">4</span><span class="code"> &nbsp;&nbsp;} else {</span>
+                </div>
+                <div>
+                    <span class="line-number">5</span><span class="code"> &nbsp;&nbsp;&nbsp;&nbsp;return "Error 404: Page not found";</span>
+                </div>
+                <div>
+                    <span class="line-number">6</span><span class="code"> &nbsp;&nbsp;}</span>
+                </div>
+                <div>
+                    <span class="line-number">7</span><span class="code">}</span>
+                </div>
+                <div>
+                    <span class="line-number">8</span><span class="code">let message = findPage("lost");</span>
+                </div>
+                <div>
+                    <span class="line-number">9</span><span class="code">console.log(message);</span>
+                    <span class="cursor cursor-blink"></span>
+                </div>
+            </div>
+            <p class="text-base mt-4">But don’t worry, our skilled team is here to help you debug and get back on track.</p> <!-- Reduced font size and margin -->
+            <a href="index.html" class="cta-button">Return to Homepage</a>
+        </div>
+    </section>
+</body>
+
+</html>
