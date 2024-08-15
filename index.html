@@ -185,56 +185,57 @@
             /* Dark border for images */
         }
 
-        /* Ensures the welcome title remains white */
+
         .hero h2,
         p {
             color: white;
-            /* White color for the title */
         }
 
         /* Testimonials Section Styles */
         .testimonial-text,
         .testimonial-name {
             color: black;
-            /* White color for text in testimonials */
         }
 
         .dark-mode .testimonial-text,
         .dark-mode .testimonial-name {
             color: white;
-            /* Ensure text remains white in dark mode */
         }
 
         /* General Glow Effect */
-.contact-icon {
-    transition: box-shadow 0.3s ease-in-out;
-}
+        .contact-icon {
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-/* Glow Effect in Dark Mode */
-.dark-mode .contact-icon {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
+        /* Glow Effect in Dark Mode */
+        .dark-mode .contact-icon {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        }
 
-/* Optional: Specific Colors for Each Icon */
-.dark-mode .contact-icon[src*="Discord.png"] {
-    box-shadow: 0 0 15px rgba(88, 101, 242, 0.6); /* Discord's blue */
-}
+        /* Optional: Specific Colors for Each Icon */
+        .dark-mode .contact-icon[src*="Discord.png"] {
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
+            /* Discord's blue */
+        }
 
-.dark-mode .contact-icon[src*="Roblox.svg"] {
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); /* Roblox's red */
-}
+        .dark-mode .contact-icon[src*="Roblox.svg"] {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            /* Roblox's red */
+        }
 
-.dark-mode .contact-icon[src*="X.png"] {
-    box-shadow: 0 0 15px rgba(29, 161, 242, 0.6); /* X's blue */
-}
+        .dark-mode .contact-icon[src*="X.png"] {
+            box-shadow: 0 0 15px rgba(29, 161, 242, 0.6);
+            /* X's blue */
+        }
     </style>
 </head>
 
 <body class="bg-F5EDED text-black font-sans">
     <!-- Navbar -->
     <header id="navbar"
-        class="sticky-header w-full bg-4e6c92 text-white shadow-lg py-8 px-8 flex justify-between items-center transition-all duration-300">
-        <h1 class="site-title text-3xl md:text-4xl font-bold transition-all duration-300">Sacred Studios</h1>
+        class="sticky-header w-full bg-4e6c92 text-white-1 shadow-lg py-8 px-8 flex justify-between items-center transition-all duration-300">
+        <h1 class="site-title text-3xl md:text-4xl font-bold transition-all duration-300 text-white-1">Sacred Studios
+        </h1>
         <nav>
             <ul class="flex space-x-8">
                 <li><a href="#about" class="nav-link">About</a></li>
@@ -385,43 +386,49 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
                 <!-- Discord Contact -->
-<div class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
-    <div class="mb-4">
-        <img src="images/Icons/Discord.png" alt="Discord Icon" class="h-12 w-12 mx-auto contact-icon">
-    </div>
-    <h3 class="text-2xl font-bold mb-4">Discord</h3>
-    <p class="mb-6 text-black">Join our Discord community to chat with us directly, get support, and stay updated on the latest news.</p>
-    <a href="https://discord.gg/eNHRKZcwUa" target="_blank"
-        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
-        Join Discord
-    </a>
-</div>
+                <div
+                    class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
+                    <div class="mb-4">
+                        <img src="images/Icons/Discord.png" alt="Discord Icon" class="h-12 w-12 mx-auto contact-icon">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Discord</h3>
+                    <p class="mb-6 text-black">Join our Discord community to chat with us directly, get support, and
+                        stay updated on the latest news.</p>
+                    <a href="https://discord.gg/eNHRKZcwUa" target="_blank"
+                        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
+                        Join Discord
+                    </a>
+                </div>
 
-<!-- Roblox Contact -->
-<div class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
-    <div class="mb-4">
-        <img src="images/Icons/Roblox.svg" alt="Roblox Icon" class="h-12 w-12 mx-auto contact-icon">
-    </div>
-    <h3 class="text-2xl font-bold mb-4">Roblox</h3>
-    <p class="mb-6 text-black">Explore our Roblox profile to see our latest creations and projects. Connect with us for collaborations or commissions.</p>
-    <a href="https://twitter.com/zeyan99645177" target="_blank"
-        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
-        Visit Roblox
-    </a>
-</div>
+                <!-- Roblox Contact -->
+                <div
+                    class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
+                    <div class="mb-4">
+                        <img src="images/Icons/Roblox.svg" alt="Roblox Icon" class="h-12 w-12 mx-auto contact-icon">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Roblox</h3>
+                    <p class="mb-6 text-black">Explore our Roblox profile to see our latest creations and projects.
+                        Connect with us for collaborations or commissions.</p>
+                    <a href="https://twitter.com/zeyan99645177" target="_blank"
+                        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
+                        Visit Roblox
+                    </a>
+                </div>
 
-<!-- X Contact -->
-<div class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
-    <div class="mb-4">
-        <img src="images/Icons/X.png" alt="X Icon" class="h-12 w-12 mx-auto contact-icon">
-    </div>
-    <h3 class="text-2xl font-bold mb-4">X (formerly Twitter)</h3>
-    <p class="mb-6 text-black">Follow us on X for updates, news, and more. Engage with us directly through tweets and messages.</p>
-    <a href="https://twitter.com/zeyan99645177" target="_blank"
-        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
-        Follow Us on X
-    </a>
-</div>
+                <!-- X Contact -->
+                <div
+                    class="p-8 bg-white bg-opacity-20 rounded-lg transform hover:scale-105 transition duration-500 text-black">
+                    <div class="mb-4">
+                        <img src="images/Icons/X.png" alt="X Icon" class="h-12 w-12 mx-auto contact-icon">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">X (formerly Twitter)</h3>
+                    <p class="mb-6 text-black">Follow us on X for updates, news, and more. Engage with us directly
+                        through tweets and messages.</p>
+                    <a href="https://twitter.com/zeyan99645177" target="_blank"
+                        class="bg-4E6C92 text-black py-3 px-8 rounded-full shadow-md hover:bg-2E466B transition duration-300 transform hover:scale-105">
+                        Follow Us on X
+                    </a>
+                </div>
     </section>
 
     <!-- Dark Mode Toggle Button -->
@@ -467,7 +474,6 @@
         document.getElementById('lastModified').textContent = document.lastModified;
     </script>
 
-    <!-- JavaScript for Dynamic Navbar -->
     <script>
         // Function to toggle dark mode
         function toggleDarkMode() {
