@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Code Viewer | Sacred Studios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        .truncate {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .file-tree-item {
+            transition: all 0.2s ease;
+        }
+        .file-tree-item:hover {
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+        pre[class*="language-"] {
+            border-radius: 0.5rem;
+            margin: 0;
+        }
+        .code-block {
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .code-header {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .doc-section {
+            border-bottom: 1px solid rgba(75, 85, 99, 0.4);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .doc-section:last-child {
+            border-bottom: none;
+        }
+        .code-container {
+            height: calc(100vh - 64px);
+            top: 64px;
+        }
+        .file-explorer {
+            height: 100%;
+            overflow-y: auto;
+        }
+        .code-content {
+            height: 100%;
+            overflow-y: auto;
+        }
+        .documentation-panel {
+            height: 100%;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="bg-gray-800/95 backdrop-blur-sm p-4 border-b border-gray-700 sticky top-0 z-50">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-xl font-bold text-blue-500">Source Code Viewer</h1>
+                    <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium" id="productName">Loading...</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" 
+                               id="searchInput"
+                               placeholder="Search files..." 
+                               class="bg-gray-700/50 pl-10 pr-4 py-2 rounded-lg w-64 border border-gray-600 focus:outline-none focus:border-blue-500 transition-colors">
+                        <div id="searchResults" class="absolute w-full mt-2 bg-gray-800 rounded-lg shadow-lg hidden z-50 border border-gray-700"></div>
+                    </div>
+                    <a href="#" id="backToProduct" class="flex items-center space-x-2 bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Product</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-[calc(100vh-64px)]">
+        <div class="w-72 bg-gray-800/95 backdrop-blur-sm border-r border-gray-700 overflow-y-auto" id="fileExplorer">
+            <div class="p-4">
+                <h2 class="text-sm font-semibold text-gray-400 mb-4 uppercase">Project Structure</h2>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden flex flex-col bg-gray-900">
+            <div class="flex-1 overflow-auto p-6">
+                <div class="bg-gray-800 rounded-xl shadow-xl border border-gray-700">
+                    <div id="fileContent">
+                        <div class="flex justify-between items-start p-4 code-header">
+                            <div>
+                                <h2 class="text-xl font-bold truncate" id="fileName">Select a file</h2>
+                                <p class="text-gray-400 mt-1" id="fileDescription"></p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button id="copyButton" onclick="copyCode()" 
+                                        class="bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm flex items-center">
+                                    <i class="fas fa-copy mr-2"></i> Copy Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4 code-block">
+                            <pre class="language-lua"><code id="codeContent">-- Select a file to view its contents</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-80 bg-gray-800/95 backdrop-blur-sm border-l border-gray-700 overflow-y-auto" id="documentation">
+            <div class="p-4">
+                <h2 class="text-sm font-semibold text-gray-400 mb-4 uppercase">Documentation</h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-lua.min.js"></script>
+    <script src="scripts/products.js"></script>
+    
+    <script>
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const product = getProductById(productId);
+
+        if (product) {
+            // Update UI with product info
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('backToProduct').href = `product-details.html?id=${productId}`;
+            
+            // Use product's source structure
+            const fileStructure = product.sourceStructure;
+            
+            // Copy functionality
+            function copyCode() {
+                const code = document.getElementById('codeContent').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    const copyButton = document.getElementById('copyButton');
+                    const originalText = copyButton.innerHTML;
+                    copyButton.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                    copyButton.classList.add('bg-green-600');
+                    
+                    setTimeout(() => {
+                        copyButton.innerHTML = originalText;
+                        copyButton.classList.remove('bg-green-600');
+                    }, 2000);
+                });
+            }
+
+            // Search functionality
+            window.handleFileClick = function(name, data) {
+                showFile(name, data);
+                searchInput.value = '';
+                searchResults.classList.add('hidden');
+            }
+
+            function searchFiles(query) {
+                query = query.toLowerCase();
+                const results = [];
+                
+                function searchInStructure(structure, path = '') {
+                    for (const [name, data] of Object.entries(structure)) {
+                        const currentPath = path ? `${path}/${name}` : name;
+                        
+                        if (data.type === 'file' && name.toLowerCase().includes(query)) {
+                            results.push({ name, path: currentPath, data });
+                        }
+                        
+                        if (data.children) {
+                            searchInStructure(data.children, currentPath);
+                        }
+                    }
+                }
+                
+                searchInStructure(fileStructure);
+                return results;
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                
+                if (query.length < 2) {
+                    searchResults.classList.add('hidden');
+                    return;
+                }
+
+                const results = searchFiles(query);
+                
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(result => `
+                        <div class="p-2 hover:bg-gray-700 cursor-pointer" 
+                             onclick="handleFileClick('${result.name}', ${JSON.stringify(result.data).replace(/"/g, '"')})">
+                            <div class="flex items-center">
+                                <i class="fas fa-${result.data.icon} text-${result.data.color}-400 mr-2"></i>
+                                <span class="truncate">${result.name}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.innerHTML = '<div class="p-2">No results found</div>';
+                    searchResults.classList.remove('hidden');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // File explorer builder
+            function buildFileExplorer(structure, parentElement = document.getElementById('fileExplorer')) {
+                for (const [name, data] of Object.entries(structure)) {
+                    const item = document.createElement('div');
+                    item.className = 'pl-4';
+                    
+                    const content = document.createElement('div');
+                    content.className = 'file-tree-item flex items-center p-2 rounded cursor-pointer truncate';
+                    content.innerHTML = `
+                        <i class="fas fa-${data.icon} text-${data.color}-400 mr-2"></i>
+                        <span class="truncate text-gray-300">${name}</span>
+                    `;
+
+                    if (data.type === 'file') {
+                        content.onclick = () => {
+                            // Remove active state from other items
+                            document.querySelectorAll('.file-tree-item.active').forEach(el => {
+                                el.classList.remove('active', 'bg-blue-500/20', 'text-blue-400');
+                            });
+                            // Add active state to clicked item
+                            content.classList.add('active', 'bg-blue-500/20', 'text-blue-400');
+                            handleFileClick(name, data);
+                        };
+                    }
+
+                    item.appendChild(content);
+
+                    if (data.children) {
+                        buildFileExplorer(data.children, item);
+                    }
+
+                    parentElement.appendChild(item);
+                }
+            }
+
+            // Show file content
+            function showFile(name, data) {
+                document.getElementById('fileName').textContent = name;
+                document.getElementById('fileDescription').textContent = data.documentation?.overview || '';
+                document.getElementById('codeContent').textContent = data.content;
+                Prism.highlightAll();
+                updateDocumentation(data.documentation);
+            }
+
+            // Update documentation
+            function updateDocumentation(docs) {
+                if (!docs) return;
+                
+                const docPanel = document.getElementById('documentation');
+                docPanel.innerHTML = `
+                    <div class="p-4 space-y-6">
+                        <div class="doc-section">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase mb-2">Overview</h3>
+                            <p class="text-sm text-gray-300">${docs.overview}</p>
+                        </div>
+                        ${docs.functions ? `
+                            <div class="doc-section">
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase mb-2">Functions</h3>
+                                <div class="space-y-4">
+                                    ${docs.functions.map(func => `
+                                        <div class="p-3 bg-gray-700/30 rounded-lg">
+                                            <div class="font-mono text-sm text-blue-400">${func.name}</div>
+                                            <div class="text-sm text-gray-400 mt-2">${func.description}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            // Initialize
+            buildFileExplorer(fileStructure);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const product = getProductById(productId);
+            if (product) {
+                // Update page badge
+                document.getElementById('pageBadge').textContent = 'Source Code';
+            }
+        });
+    </script>
+</body>
+</html>
