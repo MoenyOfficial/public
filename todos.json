@@ -2,21 +2,28 @@
   "updated": "2026-02-23",
   "items": [
     {
-      "title": "Publish my todo list on GitHub Pages",
-      "done": true,
-      "tags": ["website"],
-      "note": "Static site, public read-only"
+      "title": "Remake my own personal website",
+      "done": false,
+      "tags": ["personal"],
+      "note": "Give me like 30 min on this"
     },
     {
-      "title": "Add 5 more tasks I want to do this week",
+      "title": "Sacred Studios version 67",
       "done": false,
-      "tags": ["personal"]
+      "tags": ["website"]
+      "note": "Whenever I got time ples don't sue"
     },
     {
-      "title": "Ship a small project",
+      "title": "Voxera",
       "done": false,
-      "tags": ["work"],
-      "note": "Keep it tiny and finishable"
+      "tags": ["secret"],
+      "note": "project only few people know it exist"
+    },
+    {
+      "title": "Grass Panel",
+      "done": false,
+      "tags": ["roblox"]
+      "note": "designs are basically finished"
     }
   ]
 }
