@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Todo List</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Public todo list" />
+</head>
+<body>
+  <header class="container">
+    <h1>My Todo List</h1>
+    <p class="subtitle">Public list — read-only for visitors.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search todos…" autocomplete="off" />
+        <div class="badges">
+          <span id="count" class="badge">0 items</span>
+          <span id="updated" class="badge subtle">Updated: —</span>
+        </div>
+      </div>
+
+      <ul id="list" class="list" aria-live="polite"></ul>
+
+      <footer class="hint">
+        <strong>How to update:</strong> Edit <code>todos.json</code> in the repo to change what everyone sees.
+      </footer>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <a id="repoLink" href="#" target="_blank" rel="noreferrer">View source on GitHub</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
