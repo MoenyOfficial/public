@@ -1,0 +1,22 @@
+{
+  "updated": "2026-02-23",
+  "items": [
+    {
+      "title": "Publish my todo list on GitHub Pages",
+      "done": true,
+      "tags": ["website"],
+      "note": "Static site, public read-only"
+    },
+    {
+      "title": "Add 5 more tasks I want to do this week",
+      "done": false,
+      "tags": ["personal"]
+    },
+    {
+      "title": "Ship a small project",
+      "done": false,
+      "tags": ["work"],
+      "note": "Keep it tiny and finishable"
+    }
+  ]
+}
