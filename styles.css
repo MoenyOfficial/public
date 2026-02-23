@@ -1,0 +1,114 @@
+:root{
+  --bg:#0b1020;
+  --card:#121a33;
+  --text:#e8ecff;
+  --muted:#aab3da;
+  --line:#263055;
+  --accent:#7aa2ff;
+  --ok:#5eead4;
+  --warn:#fbbf24;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: radial-gradient(1200px 800px at 20% 10%, #18224a, var(--bg));
+  color:var(--text);
+}
+.container{max-width:860px; margin:0 auto; padding:24px}
+h1{margin:0 0 6px; font-size:32px}
+.subtitle{margin:0; color:var(--muted)}
+.card{
+  background: rgba(18,26,51,.9);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.toolbar{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+#search{
+  flex: 1 1 260px;
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#0e1530;
+  color:var(--text);
+  outline:none;
+}
+#search:focus{border-color:var(--accent)}
+.badges{display:flex; gap:8px; align-items:center}
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  background:#0e1530;
+  border:1px solid var(--line);
+  color:var(--text);
+  font-size:13px;
+}
+.badge.subtle{color:var(--muted)}
+.list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.item{
+  border:1px solid var(--line);
+  background:#0e1530;
+  border-radius:14px;
+  padding:12px 12px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.dot{
+  width:10px; height:10px; border-radius:50%;
+  margin-top:6px;
+  background: var(--warn);
+  flex:0 0 auto;
+}
+.item.done .dot{background: var(--ok)}
+.title{font-weight:650; margin:0 0 4px}
+.meta{color:var(--muted); font-size:13px; margin:0}
+.tag{
+  display:inline-block;
+  margin-left:8px;
+  font-size:12px;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--muted);
+}
+.hint{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px dashed var(--line);
+  color:var(--muted);
+  font-size:14px;
+}
+.footer{
+  display:flex;
+  justify-content:center;
+  padding-top:0;
+  padding-bottom:40px;
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:#0b122a; padding:2px 6px; border-radius:8px; border:1px solid var(--line)}
+.empty{
+  padding:16px;
+  border:1px dashed var(--line);
+  border-radius:14px;
+  color:var(--muted);
+  text-align:center;
+}
