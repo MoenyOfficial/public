@@ -1,33 +1,38 @@
 {
-  "updated": "2026-02-24",
+  "updated": "2026-02-25",
   "items": [
     {
       "title": "Remake my own personal website",
       "done": false,
+      "progress": 85,
       "tags": ["personal"],
       "note": "Give me like 30 min on this"
     },
     {
       "title": "NXS",
       "done": false,
+      "progress": 0,
       "tags": ["secret"],
       "note": "Might keep this a secret 4ever⌛️"
     },
     {
       "title": "Sacred Studios version 67",
       "done": false,
+      "progress": 0,
       "tags": ["website"],
       "note": "Whenever I got time ples don't sue"
     },
     {
       "title": "Voxera",
       "done": false,
+      "progress": 1,
       "tags": ["secret"],
       "note": "project only few people know it exist"
     },
     {
       "title": "Grass Panel",
       "done": false,
+      "progress": 80,
       "tags": ["roblox"],
       "note": "designs are basically finished"
     }
