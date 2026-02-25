@@ -9,6 +9,11 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
+function clampProgress(n) {
+  if (typeof n !== "number" || Number.isNaN(n)) return 0;
+  return Math.max(0, Math.min(100, n));
+}
+
 function renderItems(items, query = "") {
   const q = query.trim().toLowerCase();
   const filtered = !q
@@ -33,18 +38,33 @@ function renderItems(items, query = "") {
 
   for (const it of filtered) {
     const li = document.createElement("li");
-    li.className = `item ${it.done ? "done" : ""}`;
 
-    const tags = (it.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
+    const progress = clampProgress(it.progress);
+    const done = it.done === true || progress >= 100;
+
+    li.className = `item ${done ? "done" : ""}`;
+
+    const tags = (it.tags || [])
+      .map(t => `<span class="tag">${escapeHtml(t)}</span>`)
+      .join("");
+
     const note = it.note ? `<p class="meta">${escapeHtml(it.note)}</p>` : "";
 
     li.innerHTML = `
       <span class="dot" aria-hidden="true"></span>
-      <div>
+      <div style="width:100%">
         <p class="title">${escapeHtml(it.title)} ${tags}</p>
         ${note}
+
+        <div class="progress-wrapper">
+          <div class="progress-bar" aria-label="Progress">
+            <div class="progress-fill" style="width:${progress}%"></div>
+          </div>
+          <span class="progress-text">${progress}%</span>
+        </div>
       </div>
     `;
+
     list.appendChild(li);
   }
 
@@ -52,7 +72,7 @@ function renderItems(items, query = "") {
 }
 
 async function main() {
-  // Set repo link if running on GitHub Pages
+  // Auto-set repo link if running on GitHub Pages
   const { host, pathname } = window.location;
   if (host.endsWith("github.io")) {
     const parts = pathname.split("/").filter(Boolean);
@@ -64,7 +84,7 @@ async function main() {
     $("#repoLink").href = "#";
   }
 
-  // Load todos
+  // Load todos (public, same for everyone)
   const res = await fetch("todos.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load todos.json");
   const data = await res.json();
