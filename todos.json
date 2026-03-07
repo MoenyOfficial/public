@@ -3,29 +3,29 @@
   "items": [
     {
       "title": "Remake my own personal website",
-      "done": false,
-      "progress": 99,
+      "done": true,
+      "progress": 100,
       "tags": ["personal"],
       "note": "Give me like 30 min on this"
     },
     {
       "title": "NXS",
       "done": false,
-      "progress": 0,
+      "progress": 25,
       "tags": ["secret"],
       "note": "Might keep this a secret 4ever⌛️"
     },
     {
       "title": "Sacred Studios version 67",
       "done": false,
-      "progress": 19,
+      "progress": 41,
       "tags": ["website"],
       "note": "Whenever I got time ples don't sue"
     },
     {
       "title": "Voxera",
       "done": false,
-      "progress": 1,
+      "progress": 10,
       "tags": ["secret"],
       "note": "project only few people know it exist"
     },
