@@ -1,35 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Todo List</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="Public todo list" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Tasks</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary-color: #2563eb;
+            --success-color: #16a34a;
+            --border-color: #e2e8f0;
+            --tag-bg: #f1f5f9;
+            --font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .todo-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .todo-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .todo-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .todo-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-done {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        .todo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background-color: var(--tag-bg);
+            color: var(--text-muted);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .todo-note {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-section {
+            margin-top: auto;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease-out;
+        }
+
+        .fill-active {
+            background-color: var(--primary-color);
+        }
+
+        .fill-completed {
+            background-color: var(--success-color);
+        }
+    </style>
 </head>
 <body>
-  <header class="container">
-    <h1>My Todo List</h1>
-    <p class="subtitle">Public list — read-only for visitors.</p>
-  </header>
 
-  <main class="container">
-    <section class="card">
-      <div class="toolbar">
-        <input id="search" type="search" placeholder="Search todos…" autocomplete="off" />
-        <div class="badges">
-          <span id="count" class="badge">0 items</span>
-          <span id="updated" class="badge subtle">Updated: —</span>
-        </div>
-      </div>
-      <ul id="list" class="list" aria-live="polite"></ul>
-    </section>
-  </main>
+    <div class="container">
+        <header>
+            <h1>Project Overview</h1>
+            <div class="last-updated" id="updated-date">Loading data...</div>
+        </header>
 
-  <footer class="container footer">
-    <a id="repoLink" href="#" target="_blank" rel="noreferrer">View source on GitHub</a>
-  </footer>
+        <main class="todo-grid" id="todo-container">
+            <!-- Items worden hier geladen door JavaScript -->
+        </main>
+    </div>
 
-  <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchData();
+        });
+
+        async function fetchData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error('Network response failed');
+                }
+                const data = await response.json();
+                renderUI(data);
+            } catch (error) {
+                document.getElementById('updated-date').textContent = "Error loading data. Ensure you are running a local web server.";
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function renderUI(data) {
+            document.getElementById('updated-date').textContent = "Last updated: " + data.updated;
+            
+            const container = document.getElementById('todo-container');
+            container.innerHTML = '';
+
+            data.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'todo-card';
+
+                const statusClass = item.done ? 'status-done' : 'status-pending';
+                const statusText = item.done ? 'Completed' : 'In Progress';
+                const fillClass = item.done ? 'fill-completed' : 'fill-active';
+
+                let tagsHTML = '';
+                item.tags.forEach(tag => {
+                    tagsHTML += `<span class="tag">${tag}</span>`;
+                });
+
+                card.innerHTML = `
+                    <div class="todo-header">
+                        <h2 class="todo-title">${item.title}</h2>
+                        <span class="todo-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="todo-tags">
+                        ${tagsHTML}
+                    </div>
+                    <div class="todo-note">
+                        ${item.note}
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span>Completion</span>
+                            <span>${item.progress}%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill ${fillClass}" style="width: ${item.progress}%"></div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+    </script>
 </body>
 </html>
