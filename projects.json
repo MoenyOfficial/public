@@ -1,0 +1,12 @@
+{
+  "updated": "2026-05-13",
+  "items": [
+    {
+      "title": "Legacy Dashboard v1",
+      "completed_date": "2026-01-10",
+      "tags": ["Web"],
+      "note": "The original prototype for the workspace management system.",
+      "link": "#"
+    }
+  ]
+}
