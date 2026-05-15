@@ -2,6 +2,13 @@
   "updated": "2026-02-25",
   "items": [
     {
+      "title": "Remaking my own personal website",
+      "done": true,
+      "progress": 100,
+      "tags": ["personal"],
+      "note": "Remaking it once agian, but using Gsap for some cool features this time."
+    },
+    {
       "title": "MyLyrics V2",
       "done": true,
       "progress": 100,
@@ -50,12 +57,5 @@
       "tags": ["roblox"],
       "note": "designs are basically finished"
     },
-    {
-      "title": "Remake my own personal website",
-      "done": true,
-      "progress": 100,
-      "tags": ["personal"],
-      "note": "Give me like 30 min on this"
-    }
   ]
 }
