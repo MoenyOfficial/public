@@ -2,9 +2,16 @@
   "updated": "2026-02-25",
   "items": [
     {
-      "title": "LyricFlow-Spotify-Widget V1",
-      "done": false,
-      "progress": 80,
+      "title": "MyLyrics V2",
+      "done": true,
+      "progress": 100,
+      "tags": ["personal"],
+      "note": "Learning C#"
+    },
+    {
+      "title": "MyLyrics V1",
+      "done": true,
+      "progress": 100,
       "tags": ["personal"],
       "note": "Learning C#"
     },
