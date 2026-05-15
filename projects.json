@@ -1,12 +1,12 @@
 {
-  "updated": "2026-05-13",
+  "updated": "2026-05-15",
   "items": [
     {
-      "title": "Legacy Dashboard v1",
-      "completed_date": "2026-01-10",
-      "tags": ["Web"],
-      "note": "The original prototype for the workspace management system.",
-      "link": "#"
+      "title": "MyLyrics V2",
+      "completed_date": "2026-05-15",
+      "tags": ["C#"],
+      "note": "MyLyrics a modern, transparent desktop widget that syncs live Spotify lyrics using WPF and APIs.",
+      "link": "https://github.com/MoenyOfficial/MyLyrics"
     }
   ]
 }
